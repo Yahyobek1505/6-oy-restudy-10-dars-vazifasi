@@ -6,7 +6,7 @@ function Register() {
     <>
       <div className=" h-screen px-4 pt-10">
         <div className=" container mx-auto block w-[500px] bg-slate-50 shadow-sm shadow-current text-center p-4 form column border-2">
-        <h1 className="text-4xl font-semibold mb-4">Register Page</h1>
+        <h1 className="text-4xl font-semibold mb-4">Register</h1>
         <Box  component="form"
       sx={{
         '& .MuiTextField-root': { m: 2, width: '25rem'},
