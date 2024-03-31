@@ -18,8 +18,8 @@ useEffect(() =>{
 },[])
 function ProtectedRoute({children}) {
   const isAuthenticated = token ? true : false;
-  console.log(token);
-  console.log(isAuthenticated);
+  // console.log(token);
+  // console.log(isAuthenticated);
     useEffect(() => {
       if (!isAuthenticated) {
         naviagate('/login')
