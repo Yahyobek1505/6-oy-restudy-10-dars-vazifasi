@@ -1,20 +1,37 @@
 import Button from '@mui/material/Button';
 import { Box, TextField } from "@mui/material";
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 function Login() {
+  const name = useRef('');
+  const password = useRef("");
+  const [loading, setloading] = useState(false);
+  const navigate = useNavigate();
+  function validation(name, password) {
+    if (name.current.value.trim().length < 2) {
+      alert("Name is not correct!");
+      name.current.focus();
+      return false;
+    }
+    if (password.current.value.trim().length < 3) {
+      alert("Password is emmpty!");
+      password.current.focus();
+      return false;
+    }
+    return true;
+  }
 
   function handleLogin(e) {
     e.preventDefault();
     console.log(name.current.value);
-    const isValid = validation(name, email, password, repassword);
+    const isValid = validation(name, password);
     if (isValid) {
       const user = {
         username: name.current.value,
-        email: email.current.value,
-        password: password.current.value,
+        password: password.current.value
       };
       setloading(true);
-      fetch("https://auth-rg69.onrender.com/api/auth/signup", {
+      fetch("https://auth-rg69.onrender.com/api/auth/signin", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -23,14 +40,20 @@ function Login() {
       })
         .then((res) => res.json())
         .then((data) => {
-          if ((data.message == "User registered successfully!")) {
-            navigate("/home");
+          if (data.id) {
+            localStorage.setItem('token', data.accessToken);
+            localStorage.setItem('user', JSON.stringify(data))
+            navigate("/");
           }
-          if ((data.message == "Failed! Email is already in use!")) {
+          if ((data.message == "Invalid Password!")) {
             alert(data.message);
-            email.current.focus();
+            password.current.focus();
           }
-          console.log(data);
+          if ((data.message == "User Not found.")) {
+            alert(data.message);
+            name.current.focus();
+          }
+          
         })
         .catch((err) => {
           console.log(err);
@@ -53,9 +76,10 @@ function Login() {
       className='mb-4'
       noValidate
       autoComplete="off">
-        <TextField className="w-96" type="text" id="outlined-basic1" label="User name" variant="outlined" /> 
-        <TextField className="w-96" type="password" id="outlined-basic2" label="Password" variant="outlined" />
-        <Button onClick={handleLogin} className="w-56"  variant="contained">Login</Button>
+        <TextField inputRef={name} className="w-96" type="text" id="outlined-basic1" label="User name" variant="outlined" /> 
+        <TextField inputRef={password} className="w-96" type="password" id="outlined-basic2" label="Password" variant="outlined" />
+        <Button disabled={loading ? true : false} onClick={handleLogin} className="w-56"  variant="contained">{loading ? "Loading....." : "Login"}
+</Button>
         </Box>
         <span >Not a member yet?</span>
         <Link to="/register" className="text-blue-700 ml-2">Register</Link>

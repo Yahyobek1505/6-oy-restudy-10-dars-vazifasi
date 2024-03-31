@@ -87,6 +87,10 @@ function Register() {
         })
         .finally(() => {
           setloading(false);
+          name.current.value = "",
+          email.current.value  = "",
+          password.current.value = "",
+          repassword.current.value = ""
         });
     }
   }
