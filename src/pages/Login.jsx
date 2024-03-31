@@ -23,7 +23,6 @@ function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
-    console.log(name.current.value);
     const isValid = validation(name, password);
     if (isValid) {
       const user = {
