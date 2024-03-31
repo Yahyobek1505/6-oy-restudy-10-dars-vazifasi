@@ -4,7 +4,7 @@ import './index.css';
 function Card(props) {
   const {title, image, price } = props.data.attributes
   function handleClick() {
-    alert("Salom")
+    alert("Awesome!")
   }
   return (
     <>

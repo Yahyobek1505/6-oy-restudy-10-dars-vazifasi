@@ -19,7 +19,10 @@ function Home() {
       <div className="main">
       <div className="container">
         <div className="app">
-        <div className="card-wrapper flex gap-2 ">   
+        <div className="heade w-[100%]  mb-10 mx-auto">
+          <h1 className="text-center text-4xl font-bold">Welcome to Our site</h1>
+          </div> 
+        <div className="card-wrapper flex gap-2 flex-wrap justify-center">  
         {
           items && items.map((el, index) =>{
             return <Card key = {index} data = {el}></Card>
