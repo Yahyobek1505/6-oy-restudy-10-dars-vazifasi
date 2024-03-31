@@ -10,9 +10,12 @@ function Home() {
     .then((res) => res.json())
     .then((data) =>{
       setItems(data.data)
-      console.log(data);
+      // console.log(data);
     })
-  },[])
+    .catch((err) =>{
+      console.log(err);
+    })
+    },[])
 
   return (
     <>
